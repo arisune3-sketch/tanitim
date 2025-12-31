@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TASS | Turkish Armed Forces</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        @keyframes rgb-border {
+            0% { border-color: #ff0000; box-shadow: 0 0 15px #ff0000; }
+            33% { border-color: #00ff00; box-shadow: 0 0 15px #00ff00; }
+            66% { border-color: #0000ff; box-shadow: 0 0 15px #0000ff; }
+            100% { border-color: #ff0000; box-shadow: 0 0 15px #ff0000; }
+        }
+
+        @keyframes rgb-text {
+            0% { color: #ff0000; text-shadow: 0 0 10px #ff0000; }
+            33% { color: #00ff00; text-shadow: 0 0 10px #00ff00; }
+            66% { color: #0000ff; text-shadow: 0 0 10px #0000ff; }
+            100% { color: #ff0000; text-shadow: 0 0 10px #ff0000; }
+        }
+
+        .rgb-glow {
+            animation: rgb-border 6s linear infinite;
+            border-width: 2px;
+            border-style: solid;
+        }
+
+        .rgb-text {
+            animation: rgb-text 6s linear infinite;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="module">
+        import React, { useState, useEffect } from 'https://esm.sh/react@18.2.0';
+        import ReactDOM from 'https://esm.sh/react-dom@18.2.0/client';
+
+        // --- Navbar Bileşeni ---
+        const Navbar = () => {
+            const [isScrolled, setIsScrolled] = useState(false);
+            useEffect(() => {
+                const handleScroll = () => setIsScrolled(window.scrollY > 20);
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            return React.createElement('nav', {
+                className: `fixed top-0 left-0 w-full z-50 transition-all duration-500 ${isScrolled ? 'bg-black/90 backdrop-blur-md py-3 shadow-2xl' : 'bg-transparent py-6'}`
+            }, 
+                React.createElement('div', { className: 'max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center' },
+                    React.createElement('div', { className: 'flex items-center space-x-3 group cursor-pointer' },
+                        React.createElement('div', { className: 'w-10 h-10 bg-red-700 flex items-center justify-center rounded-lg rgb-glow' },
+                            React.createElement('span', { className: 'text-xl font-black italic text-white' }, 'T')
+                        ),
+                        React.createElement('div', { className: 'flex flex-col' },
+                            React.createElement('span', { className: 'text-xl font-black tracking-tighter group-hover:rgb-text transition-all' }, 'TASS | ARMED FORCES'),
+                            React.createElement('span', { className: 'text-[10px] tracking-widest uppercase font-bold text-red-500' }, 'Roblox Turkish Military')
+                        )
+                    ),
+                    React.createElement('div', { className: 'hidden md:flex space-x-8 items-center font-bold text-sm' },
+                        React.createElement('a', { href: '#', className: 'hover:text-red-500 transition-colors' }, 'ANA SAYFA'),
+                        React.createElement('a', { href: '#features', className: 'hover:text-red-500 transition-colors' }, 'ÖZELLİKLER'),
+                        React.createElement('a', { href: '#divisions', className: 'hover:text-red-500 transition-colors' }, 'BİRLİKLER'),
+                        React.createElement('a', { href: '#recruitment', className: 'hover:text-red-500 transition-colors' }, 'KATILIM'),
+                        React.createElement('button', { className: 'px-6 py-2 bg-red-600 hover:bg-red-700 rounded-full transition-all hover:scale-105 rgb-glow font-black' }, 'ROBLOX\'A KATIL')
+                    )
+                )
+            );
+        };
+
+        // --- Hero Bileşeni ---
+        const Hero = () => React.createElement('div', { className: 'relative h-screen w-full flex items-center justify-center overflow-hidden' },
+            React.createElement('div', { className: 'absolute inset-0 z-0' },
+                React.createElement('img', { 
+                    src: 'https://images.unsplash.com/photo-1590420485404-f86d22b8abf8?q=80&w=1920&auto=format&fit=crop',
+                    className: 'w-full h-full object-cover opacity-25 scale-105 animate-pulse',
+                    alt: 'Military'
+                }),
+                React.createElement('div', { className: 'absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-[#0a0a0a]' })
+            ),
+            React.createElement('div', { className: 'relative z-10 text-center px-4 max-w-4xl mx-auto' },
+                React.createElement('div', { className: 'inline-block px-4 py-1 bg-red-600/20 border border-red-600/50 rounded-full text-red-500 text-xs font-bold uppercase tracking-widest mb-6' }, 'TÜRKİYE\'NİN EN BÜYÜK ROBLOX ASKERİ KAMPI'),
+                React.createElement('h1', { className: 'text-6xl md:text-8xl font-black mb-6 tracking-tighter leading-none' }, 
+                    'VATAN İÇİN ', React.createElement('br'), React.createElement('span', { className: 'rgb-text italic' }, 'TASS SAFLARINA')
+                ),
+                React.createElement('p', { className: 'text-lg md:text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed' }, 'Disiplin, şeref ve sadakat. TASS ordusu seni bekliyor. Eğitimlerini tamamla ve rütbeni kuşan.'),
+                React.createElement('div', { className: 'flex flex-col md:flex-row items-center justify-center gap-6' },
+                    React.createElement('button', { className: 'w-full md:w-auto px-10 py-4 bg-red-600 text-white rounded-lg font-black text-lg hover:bg-red-700 transition-all hover:-translate-y-1 rgb-glow' }, 'ŞİMDİ EĞİTİME BAŞLA'),
+                    React.createElement('a', { href: 'https://discord.gg/u7gsqH62zh', target: '_blank', className: 'w-full md:w-auto px-10 py-4 glass-card border-gray-700 rounded-lg font-black text-lg hover:bg-white/10 transition-all text-center' }, 'DISCORD SUNUCUSU')
+                )
+            )
+        );
+
+        // --- Features Bileşeni ---
+        const Features = () => {
+            const features = [
+                { icon: '🎖️', title: 'Rütbe Sistemi', desc: 'Gerçekçi rütbe atlama ve liyakat sistemi ile komutanlığa yüksel.' },
+                { icon: '🚁', title: 'Gelişmiş Envanter', desc: 'Altay, Atak ve Bayraktar gibi milli araçları bizzat kontrol et.' },
+                { icon: '🎯', title: 'Taktik Eğitim', desc: 'Profesyonel subaylar tarafından verilen taktiksel atış ve sızma eğitimleri.' },
+                { icon: '⚔️', title: 'Operasyonlar', desc: 'Her hafta düzenlenen devasa sınır ötesi operasyonlara katıl.' },
+                { icon: '🛡️', title: 'Jandarma & Polis', desc: 'İç güvenlik ve asayişten sorumlu özel birimlerde yer al.' },
+                { icon: '📻', title: 'Gerçekçi Telsiz', desc: 'Ekibinle koordineli hareket etmek için gelişmiş radyo protokolleri.' }
+            ];
+
+            return React.createElement('section', { id: 'features', className: 'py-24 px-6 md:px-12 max-w-7xl mx-auto' },
+                React.createElement('h2', { className: 'text-4xl font-black uppercase tracking-tighter mb-12 text-center' }, 'OPERASYONEL ', React.createElement('span', { className: 'text-red-600' }, 'ÜSTÜNLÜK')),
+                React.createElement('div', { className: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8' },
+                    features.map((f, i) => React.createElement('div', { key: i, className: 'glass-card p-8 rounded-2xl hover:bg-white/5 transition-all group border-b-4 border-b-transparent hover:border-b-red-600' },
+                        React.createElement('div', { className: 'text-4xl mb-4' }, f.icon),
+                        React.createElement('h3', { className: 'text-xl font-black mb-3 group-hover:rgb-text' }, f.title),
+                        React.createElement('p', { className: 'text-gray-400 text-sm leading-relaxed' }, f.desc)
+                    ))
+                )
+            );
+        };
+
+        // --- Divisions Bileşeni ---
+        const Divisions = () => {
+            const [active, setActive] = useState(0);
+            const data = [
+                { name: 'Türk Silahlı Kuvvetleri', desc: 'Ordu merkez birimi, her türlü çatışmanın ön safları.', img: 'https://images.unsplash.com/photo-1544411047-c4915842273b?q=80&w=800', color: 'from-green-600/40' },
+                { name: 'Özel Kuvvetler (Bordo Bereliler)', desc: 'En zorlu görevlerin sessiz kahramanları.', img: 'https://images.unsplash.com/photo-1508247967583-7d982ea01526?q=80&w=800', color: 'from-red-600/40' },
+                { name: 'Hava Kuvvetleri', desc: 'Gökyüzündeki gözümüz ve havadan desteğimiz.', img: 'https://images.unsplash.com/photo-1517976487492-5750f3195933?q=80&w=800', color: 'from-blue-600/40' }
+            ];
+
+            return React.createElement('section', { id: 'divisions', className: 'py-24 bg-zinc-950/50' },
+                React.createElement('div', { className: 'max-w-7xl mx-auto px-6 md:px-12' },
+                    React.createElement('h2', { className: 'text-4xl font-black mb-12 text-center' }, 'ASKERİ ', React.createElement('span', { className: 'rgb-text' }, 'BİRİMLER')),
+                    React.createElement('div', { className: 'grid grid-cols-1 lg:grid-cols-12 gap-8 items-center' },
+                        React.createElement('div', { className: 'lg:col-span-4 space-y-4' },
+                            data.map((d, i) => React.createElement('button', {
+                                key: i,
+                                onClick: () => setActive(i),
+                                className: `w-full text-left p-6 rounded-xl transition-all border ${active === i ? 'bg-white/10 border-red-600 translate-x-3' : 'border-transparent bg-transparent hover:bg-white/5'}`
+                            }, 
+                                React.createElement('div', { className: `text-xs font-bold ${active === i ? 'text-red-500' : 'text-gray-600'}` }, `0${i+1}`),
+                                React.createElement('h3', { className: 'text-xl font-black uppercase' }, d.name)
+                            ))
+                        ),
+                        React.createElement('div', { className: 'lg:col-span-8 relative h-[450px] rounded-3xl overflow-hidden rgb-glow' },
+                            React.createElement('img', { src: data[active].img, className: 'w-full h-full object-cover' }),
+                            React.createElement('div', { className: `absolute inset-0 bg-gradient-to-t ${data[active].color} to-transparent` }),
+                            React.createElement('div', { className: 'absolute bottom-0 left-0 p-8' },
+                                React.createElement('h3', { className: 'text-3xl font-black mb-2' }, data[active].name),
+                                React.createElement('p', { className: 'text-gray-200' }, data[active].desc)
+                            )
+                        )
+                    )
+                )
+            );
+        };
+
+        // --- JoinUs Bileşeni ---
+        const JoinUs = () => React.createElement('section', { id: 'recruitment', className: 'py-24 px-6 md:px-12 max-w-7xl mx-auto' },
+            React.createElement('div', { className: 'glass-card rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden rgb-glow' },
+                React.createElement('h2', { className: 'text-4xl md:text-6xl font-black mb-6 italic' }, 'SIRALARA ', React.createElement('span', { className: 'rgb-text' }, 'KATILMA'), ' VAKTİ'),
+                React.createElement('p', { className: 'text-gray-400 mb-10 max-w-xl mx-auto' }, 'TASS safları seninle daha güçlü. Şimdi Roblox grubumuza katıl ve şanlı tarihimizdeki yerini al.'),
+                React.createElement('div', { className: 'flex flex-col md:flex-row justify-center gap-6' },
+                    React.createElement('a', { href: '#', className: 'px-12 py-5 bg-red-600 text-white font-black text-xl rounded-2xl hover:scale-105 transition-all shadow-xl shadow-red-900/20' }, 'ROBLOX GRUBU'),
+                    React.createElement('a', { href: 'https://discord.gg/u7gsqH62zh', target: '_blank', className: 'px-12 py-5 bg-blue-600 text-white font-black text-xl rounded-2xl hover:scale-105 transition-all shadow-xl shadow-blue-900/20' }, 'DISCORD')
+                )
+            )
+        );
+
+        // --- Footer Bileşeni ---
+        const Footer = () => React.createElement('footer', { className: 'py-12 px-6 border-t border-white/5 text-center text-gray-500 text-sm' },
+            React.createElement('div', { className: 'flex justify-center items-center space-x-2 mb-4 font-black text-white italic' },
+                React.createElement('div', { className: 'w-6 h-6 bg-red-600 rounded flex items-center justify-center text-xs' }, 'T'),
+                React.createElement('span', null, 'TASS ARMED FORCES')
+            ),
+            React.createElement('p', null, '© 2026 TASS | Turkish Armed Forces - Roblox Military Simulator. Tüm hakları saklıdır.')
+        );
+
+        // --- App Bileşeni ---
+        const App = () => {
+            const [loaded, setLoaded] = useState(false);
+            useEffect(() => {
+                const t = setTimeout(() => setLoaded(true), 1200);
+                return () => clearTimeout(t);
+            }, []);
+
+            if (!loaded) return React.createElement('div', { className: 'h-screen w-full flex items-center justify-center bg-[#0a0a0a]' },
+                React.createElement('div', { className: 'w-16 h-16 border-4 border-red-600 border-t-transparent rounded-full animate-spin' })
+            );
+
+            return React.createElement('div', null,
+                React.createElement(Navbar),
+                React.createElement(Hero),
+                React.createElement(Features),
+                React.createElement(Divisions),
+                React.createElement(JoinUs),
+                React.createElement(Footer)
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(React.createElement(App));
+    </script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
